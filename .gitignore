@@ -1,0 +1,33 @@
+# Distribution and Packaging (For when you build the desktop executable)
+.eggs/
+.installed.cfg
+*.egg
+*.egg-info/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+share/python-wheels/
+var/
+wheels/
+
+# Operating System files (Windows/macOS temporary files)
+.DS_Store
+Thumbs.db
+
+# Python bytecode and cache
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+*.py[cod]
+*$py.class
+
+# Virtual Environments (Created by uv / venv)
+.venv/
+ENV/
+venv/
