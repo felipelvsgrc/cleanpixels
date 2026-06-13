@@ -2,6 +2,8 @@ import sys
 
 import dearpygui.dearpygui as dpg  # type: ignore
 
+IS_WINDOWS = sys.platform == "win32"
+
 
 def show_group(group: str) -> None:
     dpg.hide_item("compressor_group")
@@ -60,8 +62,6 @@ def main() -> None:
 
     dpg.setup_dearpygui()
     dpg.show_viewport()
-
-    IS_WINDOWS = sys.platform == "win32"
 
     if IS_WINDOWS:
         from windows_utils import disable_maximize
