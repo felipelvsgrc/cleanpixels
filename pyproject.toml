@@ -4,7 +4,9 @@ version = "2026.06.11"
 description = "Compress images and remove EXIF metadata with a clean and simple desktop interface."
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "dearpygui>=2.3.1",
+]
 
 [dependency-groups]
 dev = [
