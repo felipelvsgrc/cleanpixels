@@ -1,4 +1,4 @@
-# Distribution and Packaging (For when you build the desktop executable)
+# Distribution and Packaging
 .eggs/
 .installed.cfg
 *.egg
@@ -16,7 +16,7 @@ share/python-wheels/
 var/
 wheels/
 
-# Operating System files (Windows/macOS temporary files)
+# Operating System files
 .DS_Store
 Thumbs.db
 
@@ -27,7 +27,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual Environments (Created by uv / venv)
+# Virtual Environments
 .venv/
 ENV/
 venv/
