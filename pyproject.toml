@@ -11,3 +11,24 @@ dev = [
     "mypy>=2.1.0",
     "ruff>=0.15.17",
 ]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_unused_configs = true
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "E",
+    "F",
+    "I",
+    "UP",
+]
