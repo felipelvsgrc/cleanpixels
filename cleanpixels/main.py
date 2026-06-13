@@ -1,3 +1,5 @@
+import sys
+
 import dearpygui.dearpygui as dpg  # type: ignore
 
 
@@ -58,6 +60,14 @@ def main() -> None:
 
     dpg.setup_dearpygui()
     dpg.show_viewport()
+
+    IS_WINDOWS = sys.platform == "win32"
+
+    if IS_WINDOWS:
+        from windows_utils import disable_maximize
+
+        dpg.set_frame_callback(16, disable_maximize)
+
     dpg.set_primary_window("primary_window", True)
 
     show_group("compressor_group")
