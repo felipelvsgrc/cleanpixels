@@ -1,4 +1,30 @@
 {
+  "[jsonc][markdown]": {
+    "editor.rulers": [88],
+    "prettier.printWidth": 88
+  },
+
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.quickSuggestions": { "strings": true },
+    "editor.suggest.insertMode": "replace"
+  },
+
+  "[markdown]": {
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
+
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.wordWrap": "on"
+  },
+
   "[python]": {
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.defaultColorDecorators": "never",
@@ -12,5 +38,6 @@
     "source.fixAll": "always",
     "source.organizeImports": "always"
   },
+
   "editor.formatOnSave": true
 }
