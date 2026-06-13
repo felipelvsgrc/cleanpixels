@@ -1,4 +1,6 @@
 {
+  "[ignore][properties]": { "editor.rulers": [88] },
+
   "[jsonc][markdown]": {
     "editor.rulers": [88],
     "prettier.printWidth": 88
