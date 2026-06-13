@@ -48,5 +48,7 @@
     "**/.mypy_cache": true,
     "**/.pytest_cache": true,
     "**/.ruff_cache": true
-  }
+  },
+
+  "material-icon-theme.folders.associations": { "cleanpixels": "Src" }
 }
