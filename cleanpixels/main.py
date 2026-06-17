@@ -4,6 +4,7 @@ from tkinter import Tk, filedialog
 
 import dearpygui.dearpygui as dpg  # type: ignore
 import image_utils
+import theme
 
 IS_WINDOWS = sys.platform == "win32"
 SELECTED_FILE_PATH = None
@@ -13,7 +14,7 @@ def compress_callback() -> None:
     global SELECTED_FILE_PATH
 
     if not SELECTED_FILE_PATH:
-        dpg.set_value("compressor_status_text", "Error: No file selected")
+        dpg.set_value("compressor_status_text", "No file selected")
 
         return
 
@@ -25,12 +26,11 @@ def compress_callback() -> None:
 
         if result == "":
             dpg.set_value(
-                "compressor_status_text",
-                "Done: Kept original (no size reduction achieved)",
+                "compressor_status_text", "Kept original (no size reduction achieved)"
             )
 
         else:
-            dpg.set_value("compressor_status_text", "Success: Image compressed!")
+            dpg.set_value("compressor_status_text", "Image compressed!")
 
     except Exception as e:
         dpg.set_value("compressor_status_text", f"Error: {str(e)}")
@@ -57,12 +57,13 @@ def select_file(group: str) -> None:
 
         if group == "compressor_group":
             dpg.set_value("compressor_file_text", filename)
+            dpg.show_item("compressor_file_text")
 
-            dpg.show_item("compressor_spacer_1")
             dpg.show_item("compressor_quality_text")
             dpg.show_item("compressor_quality_slider")
-            dpg.show_item("compressor_spacer_2")
-            dpg.show_item("compressor_compress_button")
+            dpg.show_item("compressor_spacer")
+
+            dpg.show_item("compressor_action_group")
 
             if image_utils.get_extension(SELECTED_FILE_PATH) in [
                 ".jpeg",
@@ -96,55 +97,74 @@ def show_group(group: str) -> None:
 
     dpg.show_item(group)
 
+    dpg.bind_item_theme("compressor_sidebar_button", "sidebar_button_theme")
+    dpg.bind_item_theme("format_converter_sidebar_button", "sidebar_button_theme")
+    dpg.bind_item_theme("metadata_stripper_sidebar_button", "sidebar_button_theme")
+
+    if group == "compressor_group":
+        dpg.bind_item_theme("compressor_sidebar_button", "sidebar_active_button_theme")
+
+    elif group == "format_converter_group":
+        dpg.bind_item_theme(
+            "format_converter_sidebar_button", "sidebar_active_button_theme"
+        )
+
+    else:
+        dpg.bind_item_theme(
+            "metadata_stripper_sidebar_button", "sidebar_active_button_theme"
+        )
+
 
 def main() -> None:
     dpg.create_context()
     dpg.create_viewport(
-        height=600,
-        max_height=600,
-        max_width=800,
+        height=384,
+        max_height=384,
+        max_width=640,
         resizable=False,
         title="CleanPixels",
-        width=800,
+        width=640,
     )
 
     with dpg.window(tag="primary_window"):
         with dpg.group(horizontal=True):
             # Sidebar
-            with dpg.child_window(width=192):
+            with dpg.child_window(width=160):
                 dpg.add_button(
                     callback=lambda: show_group("compressor_group"),
-                    height=32,
+                    height=40,
                     label="Compressor",
+                    tag="compressor_sidebar_button",
                     width=-1,
                 )
 
                 dpg.add_button(
                     callback=lambda: show_group("format_converter_group"),
-                    height=32,
+                    height=40,
                     label="Format Converter",
+                    tag="format_converter_sidebar_button",
                     width=-1,
                 )
 
                 dpg.add_button(
                     callback=lambda: show_group("metadata_stripper_group"),
-                    height=32,
+                    height=40,
                     label="Metadata Stripper",
+                    tag="metadata_stripper_sidebar_button",
                     width=-1,
                 )
 
             # Main content
-            with dpg.child_window(width=-1):
+            with dpg.child_window(tag="content_child_window", width=-1):
                 with dpg.group(tag="compressor_group"):
-                    dpg.add_text("No file selected", tag="compressor_file_text")
+                    dpg.add_text("", tag="compressor_file_text")
+                    dpg.hide_item("compressor_file_text")
 
                     dpg.add_button(
                         callback=lambda: select_file("compressor_group"),
                         label="Select File",
+                        tag="compressor_select_file_button",
                     )
-
-                    dpg.add_spacer(height=8, tag="compressor_spacer_1")
-                    dpg.hide_item("compressor_spacer_1")
 
                     dpg.add_text("", tag="compressor_quality_text")
                     dpg.hide_item("compressor_quality_text")
@@ -154,32 +174,35 @@ def main() -> None:
                         max_value=0,
                         min_value=0,
                         tag="compressor_quality_slider",
-                        width=400,
+                        width=-1,
                     )
                     dpg.hide_item("compressor_quality_slider")
 
-                    dpg.add_spacer(height=8, tag="compressor_spacer_2")
-                    dpg.hide_item("compressor_spacer_2")
+                    dpg.add_spacer(height=137, tag="compressor_spacer")
+                    dpg.hide_item("compressor_spacer")
 
-                    dpg.add_button(
-                        callback=compress_callback,
-                        label="Compress",
-                        tag="compressor_compress_button",
-                        width=100,
-                    )
-                    dpg.hide_item("compressor_compress_button")
+                    with dpg.group(horizontal=True, tag="compressor_action_group"):
+                        dpg.add_button(
+                            callback=compress_callback,
+                            label="Compress",
+                            tag="compressor_compress_button",
+                            width=100,
+                        )
 
-                    dpg.add_text(
-                        "No action is being taken", tag="compressor_status_text"
-                    )
+                        dpg.add_text("", tag="compressor_status_text")
+
+                    dpg.hide_item("compressor_action_group")
 
                 with dpg.group(tag="format_converter_group"):
-                    dpg.add_text("Convert format")
+                    dpg.add_text("In development")
 
                 with dpg.group(tag="metadata_stripper_group"):
-                    dpg.add_text("Strip metadata")
+                    dpg.add_text("In development")
 
     dpg.setup_dearpygui()
+
+    theme.apply()
+
     dpg.show_viewport()
 
     if IS_WINDOWS:
