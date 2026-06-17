@@ -91,8 +91,8 @@ def select_file(group: str) -> None:
 
 def show_group(group: str) -> None:
     dpg.hide_item("compressor_group")
-    dpg.hide_item("convert_format_group")
-    dpg.hide_item("strip_metadata_group")
+    dpg.hide_item("format_converter_group")
+    dpg.hide_item("metadata_stripper_group")
 
     dpg.show_item(group)
 
@@ -120,16 +120,16 @@ def main() -> None:
                 )
 
                 dpg.add_button(
-                    callback=lambda: show_group("convert_format_group"),
+                    callback=lambda: show_group("format_converter_group"),
                     height=32,
-                    label="Convert Format",
+                    label="Format Converter",
                     width=-1,
                 )
 
                 dpg.add_button(
-                    callback=lambda: show_group("strip_metadata_group"),
+                    callback=lambda: show_group("metadata_stripper_group"),
                     height=32,
-                    label="Strip Metadata",
+                    label="Metadata Stripper",
                     width=-1,
                 )
 
@@ -173,10 +173,10 @@ def main() -> None:
                         "No action is being taken", tag="compressor_status_text"
                     )
 
-                with dpg.group(tag="convert_format_group"):
+                with dpg.group(tag="format_converter_group"):
                     dpg.add_text("Convert format")
 
-                with dpg.group(tag="strip_metadata_group"):
+                with dpg.group(tag="metadata_stripper_group"):
                     dpg.add_text("Strip metadata")
 
     dpg.setup_dearpygui()
