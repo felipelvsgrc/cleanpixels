@@ -48,7 +48,7 @@ wheels = [
 
 [[package]]
 name = "cleanpixels"
-version = "2026.6.11"
+version = "2026.6.17"
 source = { virtual = "." }
 dependencies = [
     { name = "dearpygui" },
