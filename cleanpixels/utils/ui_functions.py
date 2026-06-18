@@ -1,4 +1,5 @@
 import platform
+import tkinter as tk
 
 import dearpygui.dearpygui as dpg  # type: ignore
 from utils.ui_data import (  # type: ignore
@@ -8,6 +9,8 @@ from utils.ui_data import (  # type: ignore
     CONTENT_CHILD_WINDOW_BROWSE_IMAGE_BUTTON,
     CONTENT_CHILD_WINDOW_STATUS_TEXT,
     PRIMARY_WINDOW,
+    VIEWPORT_HEIGHT,
+    VIEWPORT_WIDTH,
 )
 
 
@@ -46,6 +49,21 @@ def centralize_content() -> None:
     )
 
     dpg.configure_item(CONTENT_CHILD_WINDOW_STATUS_TEXT, pos=[text_x, text_y])
+
+
+def centralize_window() -> tuple[int, int]:
+    root = tk.Tk()
+    root.withdraw()
+
+    screen_height = root.winfo_screenheight()
+    screen_width = root.winfo_screenwidth()
+
+    root.destroy()
+
+    return (
+        (screen_width - VIEWPORT_WIDTH) // 2,
+        (screen_height - VIEWPORT_HEIGHT) // 2,
+    )
 
 
 def dpg_render_loop() -> None:

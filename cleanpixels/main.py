@@ -6,18 +6,24 @@ from utils.ui_data import (
     CONTENT_CHILD_WINDOW_BROWSE_IMAGE_BUTTON,
     CONTENT_CHILD_WINDOW_STATUS_TEXT,
     PRIMARY_WINDOW,
+    VIEWPORT_HEIGHT,
+    VIEWPORT_WIDTH,
 )
-from utils.ui_functions import dpg_render_loop
+from utils.ui_functions import centralize_window, dpg_render_loop
 
 
 def main() -> None:
     dpg.create_context()
 
+    viewport_pos = centralize_window()
+
     dpg.create_viewport(
-        height=200,
+        height=VIEWPORT_HEIGHT,
         resizable=False,
         title="CleanPixels",
-        width=400,
+        width=VIEWPORT_WIDTH,
+        x_pos=viewport_pos[0],
+        y_pos=viewport_pos[1],
     )
 
     with dpg.window(tag=PRIMARY_WINDOW):
