@@ -1,3 +1,5 @@
+import platform
+
 import dearpygui.dearpygui as dpg  # type: ignore
 from utils.ui_data import (  # type: ignore
     CHILD_HEIGHT,
@@ -64,8 +66,12 @@ def dpg_render_loop() -> None:
                     current_width = window_size[0]
 
                     if current_height == last_height and current_width == last_width:
-                        centralize_content()
+                        if platform.system() == "Windows":
+                            from utils.windows import disable_maximize  # type: ignore
 
+                            disable_maximize()
+
+                        centralize_content()
                         is_content_centered = True
 
                     last_height = current_height
