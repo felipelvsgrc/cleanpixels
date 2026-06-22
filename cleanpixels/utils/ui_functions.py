@@ -67,11 +67,11 @@ def centralize_window() -> tuple[int, int]:
 
 
 def dpg_render_loop() -> None:
-    is_content_centered = False
+    is_maximize_disabled = False
     last_height, last_width = 0, 0
 
     while dpg.is_dearpygui_running():
-        if not is_content_centered:
+        if not is_maximize_disabled:
             if dpg.does_item_exist(
                 PRIMARY_WINDOW,
             ) and dpg.does_item_exist(
@@ -89,10 +89,11 @@ def dpg_render_loop() -> None:
 
                             disable_maximize()
 
-                        centralize_content()
-                        is_content_centered = True
+                        is_maximize_disabled = True
 
                     last_height = current_height
                     last_width = current_width
+
+        centralize_content()
 
         dpg.render_dearpygui_frame()
